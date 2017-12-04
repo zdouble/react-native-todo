@@ -2,17 +2,17 @@ import * as React from 'react'
 import styled from '../../common/styled-components'
 import { Actions } from 'react-native-router-flux'
 
-import NoToDo from './no-todo'
+import Edit from '../../components/edit'
 import Operate from '../../components/operate'
 
-const addImage = require('../../images/ic_add.png')
+const doneImage = require('../../images/ic_done.png')
 
-class Home extends React.Component {
+class NewToDo extends React.Component {
     render() {
-        return(
+        return (
             <Container>
-                <NoToDo />
-                <Operate onPress={() => Actions.newToDo()} image={addImage} />
+                <Edit/>
+                <Operate onPress={() => Actions.test()} image={doneImage} />
             </Container>
         )
     }
@@ -22,4 +22,4 @@ const Container = styled.View`
     flex: 1
 `
 
-export default Home
+export default NewToDo

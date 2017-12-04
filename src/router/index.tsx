@@ -1,20 +1,31 @@
 import * as React from 'react'
-import { Router, Stack, Scene, Drawer } from 'react-native-router-flux'
+import { Router, Stack, Scene, Drawer, Overlay } from 'react-native-router-flux'
+import { Image } from 'react-native'
 import Home from '../view/home'
 import Statistics from '../view/statistics'
 import DrawerContent from '../components/drawer'
-const MenuIcon = require('../images/menu_burger.png') 
+import NewToDo from '../view/new-todo'
+const MenuIcon = require('../images/ic_menu.png')
 const App = () => (
-    <Router>
-        <Drawer
-            key="drawer"
-            contentComponent={DrawerContent}
-            drawerImage={MenuIcon}
-            drawerWidth={300}
-        >
-            <Scene key="home" component={Home} title="ToDo" navigationBarStyle={{ backgroundColor: 'red' }} />
-            <Scene key="statistics" component={Home} title="Statistics" />
-        </Drawer>
+    <Router
+        navigationBarStyle={{backgroundColor: '#455a64'}}
+        titleStyle={{color: '#fff'}}
+        leftButtonIconStyle={{padding:0, width: 25, height: 25}}
+    >
+        <Stack>
+            <Scene hideNavBar>
+                <Drawer
+                    key="drawer"
+                    contentComponent={DrawerContent}
+                    drawerImage={MenuIcon}
+                    drawerWidth={300}
+                >
+                    <Scene key="home" component={Home} title="ToDo" />
+                    <Scene key="statistics" component={Statistics} title="Statistics" />
+                </Drawer>
+            </Scene>
+            <Scene key="newToDo" component={NewToDo} title="New TO-DO" />
+        </Stack>
     </Router>
 )
 
