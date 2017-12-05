@@ -6,6 +6,7 @@ import { observer, inject } from 'mobx-react/native'
 import { Text } from 'react-native';
 
 import NoToDo from './no-todo'
+import ToDo from './todo'
 import Operate from '../../components/operate'
 
 const addImage = require('../../images/ic_add.png')
@@ -14,13 +15,12 @@ const addImage = require('../../images/ic_add.png')
 @observer
 class Home extends React.Component {
     render() {
-        let { list:Data } = this.props.ToDo
+        let { list:data } = this.props.ToDo
         return(
             <Container>
                 {
-                    !Data.length ? <Text>111</Text> : <NoToDo />
+                    data.length ? <ToDo data={data} /> : <NoToDo />
                 }
-                
                 <Operate onPress={() => Actions.newToDo()} image={addImage} />
             </Container>
         )
