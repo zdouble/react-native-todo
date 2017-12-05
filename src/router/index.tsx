@@ -10,10 +10,13 @@ const App = () => (
     <Router
         navigationBarStyle={{backgroundColor: '#455a64'}}
         titleStyle={{color: '#fff'}}
-        leftButtonIconStyle={{padding:0, width: 25, height: 25}}
+        leftButtonIconStyle={{width: 25, height: 25}}
+        navBarButtonColor="#fff"
     >
-        <Stack>
-            <Scene hideNavBar>
+        <Stack key="root">
+            <Scene 
+                key="drawerWrap" 
+                hideNavBar>
                 <Drawer
                     key="drawer"
                     contentComponent={DrawerContent}

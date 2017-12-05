@@ -10,7 +10,8 @@
             {
                 "name": "typescript-styled-plugin"
             }
-        ]
+        ],
+        "experimentalDecorators": true
     },
     "exclude": [
         "node_modules"

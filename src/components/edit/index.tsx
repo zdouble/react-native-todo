@@ -1,6 +1,5 @@
 import * as React from 'react'
 import styled from '../../common/styled-components'
-import { View, KeyboardAvoidingView } from 'react-native'
 
 interface contentType {
     title: string
@@ -10,6 +9,7 @@ interface contentType {
 class Edit extends React.Component {
     title:string = ''
     content:string = ''
+    
     _onContentSizeChange = ({ nativeEvent: { contentSize: { width, height } } }) => {
         setTimeout(() => {
             this.scroll.scrollTo({ y: Math.max(0, height - 200) })
@@ -33,35 +33,30 @@ class Edit extends React.Component {
     
     render() {
         return (
-            <KeyboardAvoidingView
-                behavior="padding"
-                style={{flex:1}}
-            >
-                <Container>
-                    <Input
-                        onChangeText={this.onChangeTitle}
-                        placeholder="Title" />
-                    <Wrap>
-                        <ScrollView
-                            innerRef={ref => { this.scroll = ref }}
-                            showsVerticalScrollIndicator
-                        >
-                            <TextArea
-                                autoGrow
-                                multiline
-                                onContentSizeChange={this._onContentSizeChange}
-                                onChangeText={this.onChangeContent}
-                                placeholder="Enter your TO-DO here." />
-                        </ScrollView>
-                    </Wrap>
-                </Container>
-            </KeyboardAvoidingView>
+            <Container keyboardShouldPersistTaps>
+                <Input
+                    onChangeText={this.onChangeTitle}
+                    placeholder="Title" />
+                <Wrap>
+                    <ScrollView
+                        keyboardShouldPersistTaps
+                        innerRef={ref => { this.scroll = ref }}
+                        showsVerticalScrollIndicator
+                    >
+                        <TextArea
+                            autoGrow
+                            multiline
+                            onContentSizeChange={this._onContentSizeChange}
+                            onChangeText={this.onChangeContent}
+                            placeholder="Enter your TO-DO here." />
+                    </ScrollView>
+                </Wrap>
+            </Container>
         )
     }
 }
 
-const Container = styled.View`
-    flex: 1;
+const Container = styled.ScrollView`
     paddingVertical: 10;
     paddingHorizontal: 5;
 `
@@ -69,10 +64,10 @@ const Input = styled.TextInput`
     font-size: 16;
 `
 const Wrap = styled.View`
-    height: 250;
+    height: 200;
 `
 const TextArea = Input.extend`
-    height: 250;
+    height: 200;
     textAlignVertical: top;
 `
 const ScrollView = styled.ScrollView`
