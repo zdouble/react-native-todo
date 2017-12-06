@@ -15,8 +15,19 @@ interface DetailProps {
 
 @inject('ToDo')
 class Detail extends React.Component<DetailProps, any> {
+    static onEnter = () => {
+        Actions.refresh({
+            rightTitle: 'DELETE TASK',
+            onRight: () => {
+                Actions.currentParams.deleteToDo()
+                Actions.pop()
+            }
+        })
+    }
+    
     edit: Edit
     data: { title: string, content: string }
+
     onPress = () => {
         let { title, content } = this.edit.getContent()
         this.props.ToDo.updateToDo({
@@ -29,6 +40,11 @@ class Detail extends React.Component<DetailProps, any> {
     }
     componentWillMount() {
         this.data = this.props.ToDo.getToDo(this.props.id)
+        Actions.refresh({
+            deleteToDo: () => {
+                this.props.ToDo.deleteToDo(this.props.id)
+            }
+        })
     }
     render() {
         let { title, content } = this.data
