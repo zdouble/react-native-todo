@@ -23,6 +23,7 @@ const Item: React.SFC<ItemProps> = ({ icon, text, onPress }) => (
     </ItemContainer>
 )
 
+
 const List = () => (
     <Container>
         <Item icon={listIcon} text="TO-DO List" onPress={() => Actions.home()}/>

@@ -3,31 +3,38 @@ import ToDoType from '../types/todo-type'
 
 
 class ToDo {
-    @observable list: ToDoType[] = []
+    @observable listRegistry = observable.map()
+
+    @computed get list(): {}[] {
+        return this.listRegistry.values()
+    }
 
     @computed get completedCount(): number {
-        return this.list.length
+        return this.listRegistry.size
     }
 
     @action initList(data: ToDoType[]) {
-        this.list = data
+        data.forEach(item => this.listRegistry.set(item.id, item))
     }
 
     @action addToDo(data: ToDoType) {
-        this.list.push(data)
+        this.listRegistry.set(data.id, data)
     }
 
     @action deleteToDo(id: string) {
-        this.list = this.list.filter(item => item.id !== id)
+        this.listRegistry.delete(id)
     }
 
-    @action modifyToDo(data: ToDoType) {
-        this.list = this.list.map(item => {
-            if (item.id === data.id) {
-                return data
-            }
-            return item
-        })
+    @action updateToDo(data: ToDoType) {
+        this.listRegistry.set(data.id, data)
+    }
+
+    @action getToDo(id: string): ToDoType | undefined {
+        return this.listRegistry.get(id) as ToDoType | undefined 
+    }
+
+    @action setCompleted(id: string, completed: boolean) {
+        this.listRegistry.set(id, { ...this.listRegistry.get(id), completed })
     }
 }
 

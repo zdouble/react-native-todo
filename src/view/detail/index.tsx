@@ -8,29 +8,33 @@ import Operate from '../../components/operate'
 
 const doneImage = require('../../images/ic_done.png')
 
-interface NewToDoProps {
-    ToDo: any
+interface DetailProps {
+    ToDo: any,
+    id: string
 }
 
 @inject('ToDo')
-class NewToDo extends React.Component<NewToDoProps, any> {
+class Detail extends React.Component<DetailProps, any> {
     edit: Edit
-
+    data: { title: string, content: string }
     onPress = () => {
         let { title, content } = this.edit.getContent()
-        this.props.ToDo.addToDo({
-            id: Date.now(),
+        this.props.ToDo.updateToDo({
+            id: this.props.id,
             title,
             content,
             completed: false
         })
         Actions.pop()
     }
+    componentWillMount() {
+        this.data = this.props.ToDo.getToDo(this.props.id)
+    }
     render() {
-        console.log(Actions)
+        let { title, content } = this.data
         return (
             <Container>
-                <Edit ref={ref => this.edit = ref as Edit} />
+                <Edit title={title} content={content} ref={ref => this.edit = ref as Edit} />
                 <Operate onPress={this.onPress} image={doneImage} />
             </Container>
         )
@@ -41,4 +45,4 @@ const Container = styled.View`
     flex: 1
 `
 
-export default NewToDo
+export default Detail

@@ -1,18 +1,35 @@
 import * as React from 'react'
-import { Text, CheckBox } from 'react-native'
+import { CheckBox } from 'react-native'
 import styled from '../../common/styled-components'
+import { observer, inject } from 'mobx-react/native'
+import { Actions } from 'react-native-router-flux'
 
 import ToDoType from '../../types/todo-type'
 
-class ToDo extends React.Component {
-    renderItem = ({item}: {item: ToDoType}) => {
+interface ToDoProps {
+    ToDo?: any,
+    data: ToDoType[]
+}
+
+@inject('ToDo')
+class ToDo extends React.Component<ToDoProps, any> {
+    renderItem = ({ item }: { item: ToDoType }) => {
         return (
-            <ItemView>
-                <CheckBox/>
+            <ItemView onPress={() => this.itemPress(item.id)}>
+                <CheckBox value={item.completed} onValueChange={(completed: boolean) => this.checkBoxChange(completed, item.id)} />
                 <ItemText numberOfLines={2}>{item.title}</ItemText>
             </ItemView>
         )
     }
+
+    itemPress = (id: string) => {
+        Actions.detail({ id })
+    }
+
+    checkBoxChange = (completed: boolean, id: string) => {
+        this.props.ToDo.setCompleted(id, completed)
+    }
+
     keyExtractor = (item: ToDoType): string => item.id
 
     render() {

@@ -1,44 +1,60 @@
 import * as React from 'react'
 import styled from '../../common/styled-components'
+import { ScrollView } from 'react-native'
 
-interface contentType {
-    title: string
-    content: string
+interface EditProps {
+    title?: string
+    content?: string
 }
 
-class Edit extends React.Component {
-    title:string = ''
-    content:string = ''
-    
-    _onContentSizeChange = ({ nativeEvent: { contentSize: { width, height } } }) => {
+class Edit extends React.Component<EditProps, any> {
+
+    static defaultProps = {
+        title: '',
+        content: ''
+    }
+
+    title: string = ''
+    content: string = ''
+    scroll: ScrollView
+
+    _onContentSizeChange = ({ nativeEvent: { contentSize: { width, height } } }: { nativeEvent: { contentSize: { width: number, height: number } } }) => {
         setTimeout(() => {
             this.scroll.scrollTo({ y: Math.max(0, height - 200) })
         })
     }
 
-    onChangeTitle = (text: string): void => {
+    onChangeTitle = (text: string) => {
         this.title = text
     }
 
-    onChangeContent = (text: string): void => {
+    onChangeContent = (text: string) => {
         this.content = text
     }
 
-    getContent = (): contentType => {
+    getContent = (): EditProps => {
         return {
             title: this.title,
             content: this.content
         }
     }
-    
+
+
+    componentWillMount() {
+        this.title = this.props.title as string
+        this.content = this.props.content as string
+    }
+
+
     render() {
         return (
             <Container keyboardShouldPersistTaps>
                 <Input
+                    defaultValue={this.title}
                     onChangeText={this.onChangeTitle}
                     placeholder="Title" />
                 <Wrap>
-                    <ScrollView
+                    <TextScrollView
                         keyboardShouldPersistTaps
                         innerRef={ref => { this.scroll = ref }}
                         showsVerticalScrollIndicator
@@ -46,10 +62,11 @@ class Edit extends React.Component {
                         <TextArea
                             autoGrow
                             multiline
+                            defaultValue={this.content}
                             onContentSizeChange={this._onContentSizeChange}
                             onChangeText={this.onChangeContent}
                             placeholder="Enter your TO-DO here." />
-                    </ScrollView>
+                    </TextScrollView>
                 </Wrap>
             </Container>
         )
@@ -70,7 +87,7 @@ const TextArea = Input.extend`
     height: 200;
     textAlignVertical: top;
 `
-const ScrollView = styled.ScrollView`
+let TextScrollView = styled.ScrollView`
     flex: 1;
 `
 export default Edit

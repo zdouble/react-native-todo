@@ -26,6 +26,7 @@ const Container = styled.TouchableOpacity`
     bottom: 20;
     right: 20;
 `
+
 const ImageView = styled.Image`
     width: 40;
     height: 40;
