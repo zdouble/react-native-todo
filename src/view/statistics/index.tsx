@@ -1,23 +1,35 @@
 import * as React from 'react'
-import {
-    View,
-    Text
-} from 'react-native'
 import styled from '../../common/styled-components'
+import { observer, inject } from 'mobx-react/native'
 
 const NoTask = () => (
-    <NoTaskText>You have no takes</NoTaskText>
+    <TaskBaseText>You have no takes</TaskBaseText>
 )
 
-const NoTaskText = styled.Text`
+const TaskBaseText = styled.Text`
     font-size: 16
 `
 
+const Task = ({ completedCount, activeCount }) => (
+    [
+        <TaskBaseText>Active task:{activeCount}</TaskBaseText>,
+        <TaskBaseText>Completed task:{completedCount}</TaskBaseText>
+    ]
+)
+
+
+@inject('ToDo')
+@observer
 class Statistics extends React.Component {
     render() {
+        let { completedCount, activeCount } = this.props.ToDo
         return (
             <Container>
-                <NoTask/>
+                {
+                    (completedCount || activeCount) ?
+                        <Task completedCount={completedCount} activeCount={activeCount} />
+                        : <NoTask />
+                }
             </Container>
         )
     }

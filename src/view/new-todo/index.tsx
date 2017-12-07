@@ -27,7 +27,6 @@ class NewToDo extends React.Component<NewToDoProps, any> {
         Actions.pop()
     }
     render() {
-        console.log(Actions)
         return (
             <Container>
                 <Edit ref={ref => this.edit = ref as Edit} />

@@ -5,12 +5,16 @@ import ToDoType from '../types/todo-type'
 class ToDo {
     @observable listRegistry = observable.map()
 
-    @computed get list(): {}[] {
+    @computed get list(): any {
         return this.listRegistry.values()
     }
 
     @computed get completedCount(): number {
-        return this.listRegistry.size
+        return this.list.filter((item: ToDoType) => item.completed === true).length
+    }
+
+    @computed get activeCount(): number {
+        return this.listRegistry.size - this.completedCount
     }
 
     @action initList(data: ToDoType[]) {
@@ -30,7 +34,7 @@ class ToDo {
     }
 
     @action getToDo(id: string): ToDoType | undefined {
-        return this.listRegistry.get(id) as ToDoType | undefined 
+        return this.listRegistry.get(id) as ToDoType | undefined
     }
 
     @action setCompleted(id: string, completed: boolean) {

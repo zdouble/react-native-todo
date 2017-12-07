@@ -34,12 +34,12 @@ const Container = styled.View`
     bottom:0;
     left:0;
     right:0;
-    padding: 30px 0;
+    padding: 30px;
     justify-content: flex-end;
     
 `
 const TextView = styled.View`
-    padding: 5px 0;
+    padding: 10px;
     min-width: 100;
     background-color: rgba(0,0,0,0.8);
     border-radius: 8;

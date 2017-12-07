@@ -23,9 +23,9 @@ interface HomeProps {
 @observer
 class Home extends React.Component<HomeProps, any> {
     newToDo() {
-        // Actions.newToDo()
+        Actions.newToDo()
         
-        Toast.show('test')
+        Toast.show('testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest')
     }
     render() {
         let { list: data } = this.props.ToDo
