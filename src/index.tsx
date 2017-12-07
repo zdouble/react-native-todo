@@ -4,12 +4,15 @@ import { useStrict } from 'mobx'
 import { Provider } from 'mobx-react'
 import stores from './stores'
 import Router from './router'
+import Overlay from './components/overlay'
 
 useStrict(true)
 
 const App = () => (
     <Provider {...stores}>
-        <Router />
+        <Overlay>
+            <Router />
+        </Overlay>
     </Provider>
 )
 

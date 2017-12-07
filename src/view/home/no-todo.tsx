@@ -4,7 +4,6 @@ import styled from '../../common/styled-components'
 
 const assignment = require('../../images/ic_assignment.png')
 
-
 const NoToDo = () => (
     <Container>
         <ImageView source={assignment} />

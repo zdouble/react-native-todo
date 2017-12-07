@@ -3,9 +3,13 @@ import styled from '../../common/styled-components'
 import { Actions } from 'react-native-router-flux'
 import { observer, inject } from 'mobx-react/native'
 
+import { View, Text } from 'react-native';
+
 import NoToDo from './no-todo'
 import ToDo from './todo'
 import Operate from '../../components/operate'
+import Overlay from '../../components/overlay'
+import Toast from '../../components/toast'
 
 import ToDoType from '../../types/todo-type'
 
@@ -18,6 +22,11 @@ interface HomeProps {
 @inject('ToDo')
 @observer
 class Home extends React.Component<HomeProps, any> {
+    newToDo() {
+        // Actions.newToDo()
+        
+        Toast.show('test')
+    }
     render() {
         let { list: data } = this.props.ToDo
         return (
@@ -25,7 +34,7 @@ class Home extends React.Component<HomeProps, any> {
                 {
                     data.length ? <ToDo data={data} /> : <NoToDo />
                 }
-                <Operate onPress={() => Actions.newToDo()} image={addImage} />
+                <Operate onPress={this.newToDo} image={addImage} />
             </Container>
         )
     }
