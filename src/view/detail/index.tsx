@@ -47,6 +47,7 @@ class Detail extends React.Component<DetailProps, any> {
         })
     }
     render() {
+        console.log(1)
         let { title, content } = this.data
         return (
             <Container>

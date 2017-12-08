@@ -29,11 +29,11 @@ const App = () => (
                     drawerImage={MenuIcon}
                     drawerWidth={300}
                 >
-                    <Scene key="home" component={Home} title="ToDo" />
+                    <Scene key="home" component={Home} hideNavBar />
                     <Scene key="statistics" component={Statistics} title="Statistics" />
                 </Drawer>
             </Scene>
-            <Scene key="newToDo" component={NewToDo} title="New TO-DO" />
+            <Scene key="newToDo" component={NewToDo} title="New TO-DO"  />
             <Scene key="detail" component={Detail} title="ToDo" />
         </Stack>
     </Router>

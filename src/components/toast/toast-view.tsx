@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { View, StyleSheet } from 'react-native';
+import * as React from 'react'
 import styled from '../../common/styled-components'
 
 class ToastView extends React.Component {
@@ -7,8 +6,8 @@ class ToastView extends React.Component {
 
     componentDidMount() {
         this.timer = setTimeout(() => {
-            this.props.close(this.props.overlayKey)
-        }, 3000);
+            this.props.close()
+        }, 3000)
     }
 
     componentWillUnmount() {
@@ -21,7 +20,6 @@ class ToastView extends React.Component {
                 <TextView>
                     <Text>{this.props.text}</Text>
                 </TextView>
-
             </Container>
         )
     }
@@ -41,7 +39,7 @@ const Container = styled.View`
 const TextView = styled.View`
     padding: 10px;
     min-width: 100;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.3);
     border-radius: 8;
     align-items: center;
 `
@@ -50,4 +48,4 @@ const Text = styled.Text`
     color: #fff
 `
 
-export default ToastView;
+export default ToastView

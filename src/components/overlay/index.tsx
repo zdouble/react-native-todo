@@ -17,8 +17,6 @@ class Overlay extends React.Component {
         elements: []
     }
 
-
-
     componentWillMount() {
         DeviceEventEmitter.addListener('add', (e) => this.add(e))
         DeviceEventEmitter.addListener('remove', (key) => this.remove(key))
@@ -40,7 +38,7 @@ class Overlay extends React.Component {
         let elements = this.state.elements
         element = React.cloneElement(element, {
             key: this.key,
-            close: this.remove,
+            close: () => this.remove(this.key),
             overlayKey: this.key
         })
         elements.push({

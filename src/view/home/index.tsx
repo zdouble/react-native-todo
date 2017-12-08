@@ -8,8 +8,10 @@ import { View, Text } from 'react-native';
 import NoToDo from './no-todo'
 import ToDo from './todo'
 import Operate from '../../components/operate'
+
 import Overlay from '../../components/overlay'
 import Toast from '../../components/toast'
+import Menu from '../../components/menu'
 
 import ToDoType from '../../types/todo-type'
 
@@ -22,10 +24,44 @@ interface HomeProps {
 @inject('ToDo')
 @observer
 class Home extends React.Component<HomeProps, any> {
+    // static onEnter = () => {
+    //     Actions.refresh({
+    //         rightTitle: '342423'
+    //     })
+    // }
+    
+    static onEnter = () => {
+        Actions.statistics()
+    }
     newToDo() {
         Actions.newToDo()
-        
-        Toast.show('testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest')
+
+        Menu.show({
+            style: {
+                right: 0,
+                bottom: 0
+            },
+            data: [
+                {
+                    text: '1',
+                    onPress: (text) => {
+                        alert(text)
+                    }
+                },
+                {
+                    text: '2',
+                    onPress: (text) => {
+                        alert(text)
+                    }
+                },
+                {
+                    text: '3',
+                    onPress: (text) => {
+                        alert(text)
+                    }
+                }
+            ]
+        })
     }
     render() {
         let { list: data } = this.props.ToDo
