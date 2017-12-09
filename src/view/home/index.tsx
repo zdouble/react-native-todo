@@ -24,18 +24,10 @@ interface HomeProps {
 @inject('ToDo')
 @observer
 class Home extends React.Component<HomeProps, any> {
-    // static onEnter = () => {
-    //     Actions.refresh({
-    //         rightTitle: '342423'
-    //     })
-    // }
-    
-    static onEnter = () => {
-        Actions.statistics()
-    }
-    newToDo() {
+    static a = 1
+    newToDo = () => {
         Actions.newToDo()
-
+        console.log(this.constructor.a)
         Menu.show({
             style: {
                 right: 0,

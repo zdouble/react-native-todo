@@ -8,13 +8,9 @@ class MenuItem extends React.Component {
         this.props.close()
     }
 
-    onLayout = ({ nativeEvent: { layout: { x, y, width, height } } }) => {
-        console.log(height)
-    }
-
     render() {
         return (
-            <Container activeOpacity={1} onLayout={this.onLayout} onPress={this.onPress}>
+            <Container activeOpacity={1} onPress={this.onPress}>
                 <ItemText>{this.props.text}</ItemText>
             </Container>
         )
