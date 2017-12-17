@@ -18,10 +18,9 @@ class MenuItem extends React.Component {
 }
 
 const Container = styled.TouchableOpacity`
-    height: 40;
+    height: 50;
     padding: 0 10px;
     justify-content: center;
-    border-bottom-width: 1;
     border-style: solid;
     border-color: #eee;
 `
