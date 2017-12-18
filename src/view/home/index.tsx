@@ -3,6 +3,7 @@ import styled from '../../common/styled-components'
 import { Actions } from 'react-native-router-flux'
 import { observer, inject } from 'mobx-react/native'
 import { Image, TouchableOpacity } from 'react-native'
+import * as store from 'react-native-simple-store'
 
 import { View, Text } from 'react-native';
 
@@ -31,32 +32,6 @@ interface HomeProps {
 class Home extends React.Component<HomeProps, any> {
     newToDo = () => {
         Actions.newToDo()
-        Menu.show({
-            style: {
-                right: 0,
-                bottom: 0
-            },
-            data: [
-                {
-                    text: '1',
-                    onPress: (text) => {
-                        alert(text)
-                    }
-                },
-                {
-                    text: '2',
-                    onPress: (text) => {
-                        alert(text)
-                    }
-                },
-                {
-                    text: '3',
-                    onPress: (text) => {
-                        alert(text)
-                    }
-                }
-            ]
-        })
     }
     leftView = () => {
         return <Image source={MenuIcon} style={{ width: 25, height: 25 }} />
@@ -68,21 +43,21 @@ class Home extends React.Component<HomeProps, any> {
                 onPress={() => Menu.show({
                     style: { top: 50, right: 0 },
                     data: [
-                        { text: 'All', onPress: () => {} },
-                        { text: 'Active', onPress: () => {} },
-                        { text: 'Completed', onPress: () => {} }
+                        { text: 'All', onPress: () => { this.props.ToDo.changeFilterType('all') } },
+                        { text: 'Active', onPress: () => { this.props.ToDo.changeFilterType('active') } },
+                        { text: 'Completed', onPress: () => { this.props.ToDo.changeFilterType('completed') } }
                     ]
                 })}
             >
                 <Image source={FilterIcon} style={{ width: 25, height: 25 }} />
             </TouchableOpacity>,
-            <TouchableOpacity 
-                style={{ marginLeft: 15 }} 
+            <TouchableOpacity
+                style={{ marginLeft: 15 }}
                 key="more"
                 onPress={() => Menu.show({
                     style: { top: 0, right: 0 },
                     data: [
-                        { text: 'Clear completed', onPress: () => { } }
+                        { text: 'Clear completed', onPress: () => this.props.ToDo.clearToDo() }
                     ]
                 })}
             >
@@ -90,8 +65,18 @@ class Home extends React.Component<HomeProps, any> {
             </TouchableOpacity>
         ]
     }
+    async componentDidMount() {
+        this.props.ToDo.changeFilterType('all')
+        let data = await store.get('todoList')
+        this.props.ToDo.initList(data)
+    }
     render() {
-        let { list: data } = this.props.ToDo
+        let { list: data, filterType } = this.props.ToDo
+        if (filterType == 'active'){
+            data = data.filter((item:ToDoType) => !item.completed)
+        } else if (filterType == 'completed') {
+            data = data.filter((item:ToDoType) => item.completed)
+        }
         return (
             <Container>
                 <Navbar
@@ -101,7 +86,7 @@ class Home extends React.Component<HomeProps, any> {
                     leftPress={() => Actions.drawerOpen()}
                 />
                 {
-                    data.length ? <ToDo data={data} /> : <NoToDo />
+                    data.length ? <ToDo data={data} /> : <NoToDo type={filterType} />
                 }
                 <Operate onPress={this.newToDo} image={addImage} />
             </Container>

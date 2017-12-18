@@ -2,13 +2,26 @@ import * as React from 'react'
 import { Text } from 'react-native'
 import styled from '../../common/styled-components'
 
-const assignment = require('../../images/ic_assignment.png')
+const message = {
+    'all': {
+        'text': 'You have no TO-DOs!',
+        'image': require('../../images/ic_assignment.png')
+    },
+    'active': {
+        'text': 'You have no active TO-DOs!',
+        'image': require('../../images/ic_check.png')
+    },
+    'completed': {
+        'text': 'You have no completed TO-DOs!',
+        'image': require('../../images/ic_verified.png')
+    }
+}
 
-const NoToDo = () => (
+const NoToDo = ({type}) => (
     <Container>
-        <ImageView source={assignment} />
-        <Text>You have no TO-DOs!</Text>
-    </Container>
+        <ImageView source={message[type].image} />
+        <Text>{message[type].text}</Text>
+    </Container> 
 )
 
 const Container = styled.View`

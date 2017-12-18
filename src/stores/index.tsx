@@ -1,13 +1,28 @@
-import { observable, action, computed } from 'mobx'
+import { observable, action, computed, autorun } from 'mobx'
+import * as store from 'react-native-simple-store'
 import ToDoType from '../types/todo-type'
 
 
 class ToDo {
+
+    @observable filterType = 'all'
+
+    @action changeFilterType(type: 'all' | 'active' | 'completed') {
+        this.filterType = type
+    }
+
     @observable listRegistry = observable.map()
 
     @computed get list(): any {
         return this.listRegistry.values()
     }
+    // autorun(()=>{
+
+    // })
+    // set list(value) {
+    //     console.log(value)
+    //     store.save('todoList', value)
+    // }
 
     @computed get completedCount(): number {
         return this.list.filter((item: ToDoType) => item.completed === true).length
@@ -27,6 +42,10 @@ class ToDo {
 
     @action deleteToDo(id: string) {
         this.listRegistry.delete(id)
+    }
+
+    @action clearToDo() {
+        this.listRegistry.clear()
     }
 
     @action updateToDo(data: ToDoType) {

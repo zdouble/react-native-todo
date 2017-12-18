@@ -11,13 +11,11 @@ class MenuView extends React.Component {
             layoutAni: new Animated.Value(0),
         }
     }
-    close = () => {
-        this.props.close()
-    }
+    
     componentDidMount() {
         Animated.timing(this.state.layoutAni, {
             toValue: 1,
-            duration: 300,
+            duration: 100,
             easing: Easing.linear
         }).start()
     }
@@ -25,13 +23,11 @@ class MenuView extends React.Component {
     hide = () => {
         Animated.timing(this.state.layoutAni, {
             toValue: 0,
-            duration: 200,
+            duration: 100,
             easing: Easing.linear
-        }).start(() => this.close())
+        }).start(() => this.props.close())
     }
-    componentWillMount() {
-
-    }
+    
     render() {
         return (
             <OverlayView close={this.hide}>
@@ -42,7 +38,7 @@ class MenuView extends React.Component {
                         backgroundColor: '#fff'
                     }, { opacity: this.state.layoutAni }]}>
                     {
-                        this.props.data.map((item, index) => <MenuItem key={index} close={this.close} {...item} />)
+                        this.props.data.map((item, index) => <MenuItem key={index} close={this.hide} {...item} />)
                     }
                 </Animated.View>
             </OverlayView>
