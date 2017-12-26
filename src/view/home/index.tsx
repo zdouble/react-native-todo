@@ -2,8 +2,8 @@ import * as React from 'react'
 import styled from '../../common/styled-components'
 import { Actions } from 'react-native-router-flux'
 import { observer, inject } from 'mobx-react/native'
+import { observable,action } from 'mobx'
 import { Image, TouchableOpacity } from 'react-native'
-import * as store from 'react-native-simple-store'
 
 import { View, Text } from 'react-native';
 
@@ -30,6 +30,10 @@ interface HomeProps {
 @inject('ToDo')
 @observer
 class Home extends React.Component<HomeProps, any> {
+    @observable filterType = 'all'
+    @action changeFilterType(type: 'all' | 'active' | 'completed') {
+        this.filterType = type
+    }
     newToDo = () => {
         Actions.newToDo()
     }
@@ -43,9 +47,9 @@ class Home extends React.Component<HomeProps, any> {
                 onPress={() => Menu.show({
                     style: { top: 50, right: 0 },
                     data: [
-                        { text: 'All', onPress: () => { this.props.ToDo.changeFilterType('all') } },
-                        { text: 'Active', onPress: () => { this.props.ToDo.changeFilterType('active') } },
-                        { text: 'Completed', onPress: () => { this.props.ToDo.changeFilterType('completed') } }
+                        { text: 'All', onPress: () => { this.changeFilterType('all') } },
+                        { text: 'Active', onPress: () => { this.changeFilterType('active') } },
+                        { text: 'Completed', onPress: () => { this.changeFilterType('completed') } }
                     ]
                 })}
             >
@@ -65,16 +69,12 @@ class Home extends React.Component<HomeProps, any> {
             </TouchableOpacity>
         ]
     }
-    async componentDidMount() {
-        this.props.ToDo.changeFilterType('all')
-        let data = await store.get('todoList')
-        this.props.ToDo.initList(data)
-    }
+    
     render() {
-        let { list: data, filterType } = this.props.ToDo
-        if (filterType == 'active'){
+        let { list: data } = this.props.ToDo
+        if (this.filterType == 'active'){
             data = data.filter((item:ToDoType) => !item.completed)
-        } else if (filterType == 'completed') {
+        } else if (this.filterType == 'completed') {
             data = data.filter((item:ToDoType) => item.completed)
         }
         return (
@@ -86,7 +86,7 @@ class Home extends React.Component<HomeProps, any> {
                     leftPress={() => Actions.drawerOpen()}
                 />
                 {
-                    data.length ? <ToDo data={data} /> : <NoToDo type={filterType} />
+                    data.length ? <ToDo data={data} /> : <NoToDo type={this.filterType} />
                 }
                 <Operate onPress={this.newToDo} image={addImage} />
             </Container>

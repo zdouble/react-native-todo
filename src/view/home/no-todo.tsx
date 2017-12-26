@@ -17,7 +17,11 @@ const message = {
     }
 }
 
-const NoToDo = ({type}) => (
+interface NoToDoProps {
+    type: 'all' | 'active' | 'completed'
+}
+
+const NoToDo: React.SFC<NoToDoProps> = ({type}) => (
     <Container>
         <ImageView source={message[type].image} />
         <Text>{message[type].text}</Text>

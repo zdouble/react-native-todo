@@ -1,7 +1,13 @@
 import * as React from 'react'
 import styled from '../../common/styled-components'
 
-class MenuItem extends React.Component {
+interface MenuItemProps {
+    close: () => void
+    onPress: (text?:string) => void
+    text: string
+}
+
+class MenuItem extends React.Component<MenuItemProps> {
 
     onPress = () => {
         this.props.onPress(this.props.text)

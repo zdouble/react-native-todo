@@ -2,20 +2,20 @@ import * as React from 'react'
 import styled from '../../common/styled-components'
 import { Text } from 'react-native'
 
-
-
-class NavBar extends React.Component {
-
-    render() {
-        return (
-            <Container>
-                <LeftView onPress={this.props.leftPress}>{this.props.leftView}</LeftView>
-                <CenterView><Text style={{ color: '#fff', fontSize: 20, fontWeight: 'bold' }}>{this.props.title}</Text></CenterView>
-                <RightView activeOpacity={1}>{this.props.rightView}</RightView>
-            </Container>
-        )
-    }
+interface NavBarProps {
+    rightView: JSX.Element[] | JSX.Element
+    leftView: JSX.Element
+    title: string
+    leftPress: () => void
 }
+
+const NavBar: React.SFC<NavBarProps> = ({ leftPress, leftView, rightView, title}) => (
+    <Container>
+        <LeftView onPress={leftPress}>{leftView}</LeftView>
+        <CenterView><Text style={{ color: '#fff', fontSize: 20, fontWeight: 'bold' }}>{title}</Text></CenterView>
+        <RightView activeOpacity={1}>{rightView}</RightView>
+    </Container>
+)
 
 const Container = styled.View`
    height: 55;

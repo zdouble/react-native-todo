@@ -1,9 +1,16 @@
 import * as React from 'react';
 import { View, Text, StyleSheet, DeviceEventEmitter } from 'react-native';
 
-class Overlay extends React.Component {
+interface OverlayState {
+    elements: {
+        key: number,
+        element:JSX.Element
+    }[]
+}
 
-    static add(e) {
+class Overlay extends React.Component<{}, OverlayState> {
+
+    static add(e: JSX.Element) {
         DeviceEventEmitter.emit('add', e)
     }
 
@@ -13,8 +20,11 @@ class Overlay extends React.Component {
 
     key: number = 0
 
-    state = {
-        elements: []
+    constructor(props){
+        super(props)
+        this.state = {
+            elements: []
+        }
     }
 
     componentWillMount() {
@@ -33,7 +43,7 @@ class Overlay extends React.Component {
         })
     }
 
-    add = (element) => {
+    add = (element:JSX.Element) => {
         this.key++
         let elements = this.state.elements
         element = React.cloneElement(element, {

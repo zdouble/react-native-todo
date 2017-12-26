@@ -10,7 +10,13 @@ const TaskBaseText = styled.Text`
     font-size: 16
 `
 
-const Task = ({ completedCount, activeCount }) => (
+
+interface TaskProps {
+    completedCount: number
+    activeCount: number
+}
+
+const Task: React.SFC<TaskProps> = ({ completedCount, activeCount }) => (
     [
         <TaskBaseText>Active task:{activeCount}</TaskBaseText>,
         <TaskBaseText>Completed task:{completedCount}</TaskBaseText>

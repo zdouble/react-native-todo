@@ -5,6 +5,8 @@ import { Provider } from 'mobx-react'
 import stores from './stores'
 import Router from './router'
 import Overlay from './components/overlay'
+import * as store from 'react-native-simple-store'
+store.get('todoList').then(res => stores.ToDo.initList(res))
 
 useStrict(true)
 

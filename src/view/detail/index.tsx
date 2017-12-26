@@ -26,7 +26,7 @@ class Detail extends React.Component<DetailProps, any> {
     }
     
     edit: Edit
-    data: { title: string, content: string }
+    data: { title: string, content: string, completed:boolean }
 
     onPress = () => {
         let { title, content } = this.edit.getContent()
@@ -34,7 +34,7 @@ class Detail extends React.Component<DetailProps, any> {
             id: this.props.id,
             title,
             content,
-            completed: false
+            completed: this.data.completed
         })
         Actions.pop()
     }
@@ -47,7 +47,6 @@ class Detail extends React.Component<DetailProps, any> {
         })
     }
     render() {
-        console.log(1)
         let { title, content } = this.data
         return (
             <Container>

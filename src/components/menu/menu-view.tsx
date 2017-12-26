@@ -2,9 +2,18 @@ import * as React from 'react'
 import OverlayView from '../overlay/overlay-view'
 import styled from '../../common/styled-components'
 import MenuItem from './menu-item'
-import { Animated, Easing } from 'react-native'
+import { Animated, Easing, ViewStyle } from 'react-native'
 
-class MenuView extends React.Component {
+interface MenuViewProps {
+    close: () => void
+    style: ViewStyle
+    data: {
+        text:string,
+        onPress:() => void
+    }[]
+}
+
+class MenuView extends React.Component<MenuViewProps,any> {
     constructor(props) {
         super(props)
         this.state = {

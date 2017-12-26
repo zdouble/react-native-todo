@@ -5,24 +5,11 @@ import ToDoType from '../types/todo-type'
 
 class ToDo {
 
-    @observable filterType = 'all'
-
-    @action changeFilterType(type: 'all' | 'active' | 'completed') {
-        this.filterType = type
-    }
-
     @observable listRegistry = observable.map()
 
     @computed get list(): any {
         return this.listRegistry.values()
     }
-    // autorun(()=>{
-
-    // })
-    // set list(value) {
-    //     console.log(value)
-    //     store.save('todoList', value)
-    // }
 
     @computed get completedCount(): number {
         return this.list.filter((item: ToDoType) => item.completed === true).length
@@ -38,18 +25,22 @@ class ToDo {
 
     @action addToDo(data: ToDoType) {
         this.listRegistry.set(data.id, data)
+        store.save('todoList',this.list)
     }
 
     @action deleteToDo(id: string) {
         this.listRegistry.delete(id)
+        store.save('todoList', this.list)
     }
 
     @action clearToDo() {
         this.listRegistry.clear()
+        store.save('todoList', this.list)
     }
 
     @action updateToDo(data: ToDoType) {
         this.listRegistry.set(data.id, data)
+        store.save('todoList', this.list)
     }
 
     @action getToDo(id: string): ToDoType | undefined {
@@ -58,6 +49,7 @@ class ToDo {
 
     @action setCompleted(id: string, completed: boolean) {
         this.listRegistry.set(id, { ...this.listRegistry.get(id), completed })
+        store.save('todoList', this.list)
     }
 }
 

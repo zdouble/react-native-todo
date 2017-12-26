@@ -8,6 +8,7 @@ const Header = () => (
         <ImageView source={logo}/>
         <TextView>TO-DOs</TextView>
     </Container>
+    
 )
 
 const Container = styled.View`

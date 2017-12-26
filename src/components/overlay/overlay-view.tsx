@@ -2,13 +2,17 @@ import * as React from 'react'
 import styled from '../../common/styled-components'
 import { BackHandler } from 'react-native'
 
-class OverlayView extends React.Component {
+interface OverlayViewProps {
+    close?: () => void,
+    text?: string
+}
+class OverlayView extends React.Component<OverlayViewProps,any> {
 
     handler: any
 
     componentWillMount() {
         this.handler = BackHandler.addEventListener('hardwareBackPress', () => {
-            this.props.close()
+            this.props.close && this.props.close()
             return true
         })
     }

@@ -1,12 +1,16 @@
 import * as React from 'react'
 import styled from '../../common/styled-components'
 
-class ToastView extends React.Component {
+interface ToastViewProps {
+    close?: () => void,
+    text: string
+}
+class ToastView extends React.Component<ToastViewProps,any> {
     timer: number
 
     componentDidMount() {
         this.timer = setTimeout(() => {
-            this.props.close()
+            this.props.close && this.props.close()
         }, 3000)
     }
 
@@ -39,7 +43,7 @@ const Container = styled.View`
 const TextView = styled.View`
     padding: 10px;
     min-width: 100;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.8);
     border-radius: 8;
     align-items: center;
 `

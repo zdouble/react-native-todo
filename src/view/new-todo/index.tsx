@@ -5,6 +5,7 @@ import { observer, inject } from 'mobx-react/native'
 
 import Edit from '../../components/edit'
 import Operate from '../../components/operate'
+import Toast from '../../components/toast'
 
 const doneImage = require('../../images/ic_done.png')
 
@@ -18,13 +19,20 @@ class NewToDo extends React.Component<NewToDoProps, any> {
 
     onPress = () => {
         let { title, content } = this.edit.getContent()
-        this.props.ToDo.addToDo({
-            id: Date.now(),
-            title,
-            content,
-            completed: false
-        })
-        Actions.pop()
+
+        if ((title as string).trim()){
+            this.props.ToDo.addToDo({
+                id: Date.now(),
+                title,
+                content,
+                completed: false
+            })
+            Actions.pop()
+            return
+        }
+
+        Toast.show('TO DOs cannot be empty')
+        
     }
     render() {
         return (

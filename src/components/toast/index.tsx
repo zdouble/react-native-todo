@@ -4,7 +4,7 @@ import Overlay from '../overlay'
 import ToastView from './toast-view'
 
 class Toast extends Overlay {
-    static show(text) {
+    static show(text:string) {
         super.add(<ToastView text={text} />)
     }
 }
