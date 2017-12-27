@@ -27,11 +27,13 @@ interface HomeProps {
     ToDo: any
 }
 
+type filterType = 'all' | 'active' | 'completed'
+
 @inject('ToDo')
 @observer
 class Home extends React.Component<HomeProps, any> {
-    @observable filterType = 'all'
-    @action changeFilterType(type: 'all' | 'active' | 'completed') {
+    @observable filterType: filterType  = 'all'
+    @action changeFilterType(type: filterType) {
         this.filterType = type
     }
     newToDo = () => {
