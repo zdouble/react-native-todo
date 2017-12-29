@@ -5,12 +5,13 @@ import MenuItem from './menu-item'
 import { Animated, Easing, ViewStyle } from 'react-native'
 
 interface MenuViewProps {
-    close: () => void
+    close: (key?:number) => void
     style: ViewStyle
     data: {
         text:string,
         onPress:() => void
     }[]
+    overlayKey?: number
 }
 
 class MenuView extends React.Component<MenuViewProps,any> {
@@ -34,7 +35,7 @@ class MenuView extends React.Component<MenuViewProps,any> {
             toValue: 0,
             duration: 100,
             easing: Easing.linear
-        }).start(() => this.props.close())
+        }).start(() => this.props.close(this.props.overlayKey))
     }
     
     render() {

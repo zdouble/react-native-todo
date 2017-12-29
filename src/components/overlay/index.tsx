@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, DeviceEventEmitter } from 'react-native';
 
 interface OverlayState {
     elements: {
-        key: number,
-        element:JSX.Element
+        element:JSX.Element,
+        overlayKey: number
     }[]
 }
 
@@ -37,7 +37,7 @@ class Overlay extends React.Component<{}, OverlayState> {
     }
 
     remove = (key: number) => {
-        let elements = this.state.elements.filter(item => item.key !== key)
+        let elements = this.state.elements.filter(item => item.overlayKey !== key)
         this.setState({
             elements
         })
@@ -48,12 +48,12 @@ class Overlay extends React.Component<{}, OverlayState> {
         let elements = this.state.elements
         element = React.cloneElement(element, {
             key: this.key,
-            close: () => this.remove(this.key),
+            close: this.remove,
             overlayKey: this.key
         })
         elements.push({
-            key: this.key,
-            element
+            element,
+            overlayKey: this.key
         })
         this.setState({
             elements

@@ -3,8 +3,9 @@ import styled from '../../common/styled-components'
 import { BackHandler } from 'react-native'
 
 interface OverlayViewProps {
-    close?: () => void,
+    close?: (key?:number) => void
     text?: string
+    overlayKey?: number
 }
 class OverlayView extends React.Component<OverlayViewProps,any> {
 
@@ -12,7 +13,7 @@ class OverlayView extends React.Component<OverlayViewProps,any> {
 
     componentWillMount() {
         this.handler = BackHandler.addEventListener('hardwareBackPress', () => {
-            this.props.close && this.props.close()
+            this.props.close && this.props.close(this.props.overlayKey)
             return true
         })
     }

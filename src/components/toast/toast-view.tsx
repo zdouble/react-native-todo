@@ -2,16 +2,18 @@ import * as React from 'react'
 import styled from '../../common/styled-components'
 
 interface ToastViewProps {
-    close?: () => void,
+    close?: (key?:number) => void
     text: string
+    overlayKey?: number
 }
 class ToastView extends React.Component<ToastViewProps,any> {
     timer: number
 
     componentDidMount() {
+        
         this.timer = setTimeout(() => {
-            this.props.close && this.props.close()
-        }, 3000)
+            this.props.close && this.props.close(this.props.overlayKey)
+        }, 2000)
     }
 
     componentWillUnmount() {
