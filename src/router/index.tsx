@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { BackHandler } from 'react-native'
-import { Router, Stack, Scene, Drawer, Overlay, Actions } from 'react-native-router-flux'
+import { Router, Stack, Scene, Drawer, Actions } from 'react-native-router-flux'
 
 import Home from '../view/home'
 import Statistics from '../view/statistics'

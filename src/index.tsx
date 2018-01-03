@@ -19,4 +19,4 @@ const App = () => (
     </Provider>
 )
 
-AppRegistry.registerComponent('ToDo', () => App);
+AppRegistry.registerComponent('ToDo', () => App)

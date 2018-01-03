@@ -1,4 +1,4 @@
-import { observable, action, computed, autorun } from 'mobx'
+import { observable, action, computed } from 'mobx'
 import * as store from 'react-native-simple-store'
 import ToDoType from '../types/todo-type'
 
